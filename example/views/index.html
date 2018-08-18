@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>koa todolist</title>
+  <link rel="stylesheet" href="/css/index.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+</head>
+<body>
+  <div class="wrap">
+    <div class="top">
+      <h2>todo list</h2>
+      <div class="form-wrap">
+        <form class="form" action="/tasks/add" method="post">
+          <input type="text" name="info" placeholder="新建TODO 按回车键确认">
+        </form>
+      </div>
+    </div>
+    <div class="main">
+      <div class="doing">
+        <h3>进行中</h3>
+        {% if doing.length %}
+          <div class="list">
+            {% for item in doing %}
+              <div class="lis">
+                <p class="info">{{ item.info }}</p>
+                <div class="lis-footer">
+                  <span class="time">{{ item.time }}</span>
+                  <div class="form">
+                    <form action="/tasks/del" method="post">
+                      <input type="hidden" name="id" value="{{ item.id }}">
+                      <input type="submit" class="finish" value="finish" >
+                    </form>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+      <div class="finished">
+        <h3>已完成</h3>
+        {% if finished.length %}
+          <div class="list">
+            {% for item in finished %}
+              <div class="lis">
+                <p class="info">{{ item.info }}</p>
+                <div class="lis-footer">
+                  <div class="line"></div>
+                  <span class="time">{{ item.time }}</span>
+                  <div class="form">
+                    <form action="/tasks/back" method="post">
+                      <input type="hidden" name="id" value="{{ item.id }}">
+                      <input type="submit" class="back" value="back" >
+                    </form>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>

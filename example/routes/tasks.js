@@ -2,7 +2,7 @@ module.exports = [
   // 渲染首页html
   {
     path: '/',
-    controller: 'tasks.home'
+    controller: 'tasks.list'
   },
   // 添加任务
   {
@@ -11,20 +11,14 @@ module.exports = [
     controller: 'tasks.add'
   },
   {
-    path: '/tasks/add',
+    path: '/tasks/del',
     methods: 'post',
-    controller: 'tasks.add'
+    controller: 'tasks.del'
   },
-  // 清除任务
+  // 切换状态
   {
-    path: '/tasks/clear',
+    path: '/tasks/back',
     methods: 'post',
-    controller: 'tasks.clear'
-  },
-  // 完成的任务
-  {
-    path: '/tasks/complete',
-    methods: 'post',
-    controller: 'tasks.complete'
+    controller: 'tasks.back'
   }
 ]

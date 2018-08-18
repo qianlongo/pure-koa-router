@@ -21,15 +21,18 @@ module.exports = ({ routes = [], controllerDir = '', routerOptions = {} }) => {
     middleware = controller.map((controller) => {
       let controllerPath = controller.split('.')
       let controllerMethod = controllerPath.pop()
+      let controllerModule
 
       controllerPath = nodePath.join(controllerDir, controllerPath.join('/'))
 
       try {
-        controllerMethod = require(controllerPath)[ controllerMethod ]
+        controllerModule = require(controllerPath)
+        controllerMethod = controllerModule[ controllerMethod ]
       } catch (error) {
-        console.log(`${controllerPath} has no ${controllerMethod} method`)
         throw error
       }
+
+      assert(typeof controllerMethod === 'function', 'koa middleware must be a function')
 
       return controllerMethod
     })

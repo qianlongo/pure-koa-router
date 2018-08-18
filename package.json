@@ -4,7 +4,7 @@
   "description": "> 一个将koa的路由配置和控制器分离的中间件 ## 路由配置设计",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon ./example/app.js",
     "lint": "standard",
     "validate": "npm ls"
   },
@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/qianlongo/pure-koa-router#readme",
   "devDependencies": {
+    "koa": "^2.5.2",
+    "nodemon": "^1.18.3",
     "precommit-hook": "^3.0.0",
     "standard": "^11.0.1"
   },

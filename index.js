@@ -21,13 +21,9 @@ module.exports = ({ routes = [], controllerDir = '', routerOptions = {} }) => {
     middleware = controller.map((controller) => {
       let controllerPath = controller.split('.')
       let controllerMethod = controllerPath.pop()
-      let controllerModule
-
-      controllerPath = nodePath.join(controllerDir, controllerPath.join('/'))
 
       try {
-        controllerModule = require(controllerPath)
-        controllerMethod = controllerModule[ controllerMethod ]
+        controllerMethod = require(nodePath.join(controllerDir, controllerPath.join('/')))[ controllerMethod ]
       } catch (error) {
         throw error
       }

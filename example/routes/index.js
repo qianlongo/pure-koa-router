@@ -1,5 +1,5 @@
-const todo = require('./todo')
+const tasks = require('./tasks')
 
 module.exports = [
-  ...todo
+  ...tasks
 ]

@@ -4,9 +4,9 @@
 
 ```
 // 一切从router.register开始
-// path
-// methods
-// middleware
+// path 支持字符串  数据 正则
+// methods 支持字符串  数据
+// middleware 支持字符串  数组
 
 // 1 最基础的配置
 {
@@ -19,22 +19,9 @@
 {
   path: '/test',
   methods: 'post',
-  controller: [ 'test.index', 'test.index2' ]
+  controller: [ 'test.index', 'apply.test.index2' ]
 }
-// 如果方法对应的method不一样可以这样配置
-{
-  path: '/test',
-  controllers: [
-    {
-      methods: 'get',
-      controller: 'test.index'
-    },
-    {
-      methods: 'post',
-      controller: 'test.index2'
-    }
-  ]
-}
+
 // 支持多个path指向同一个controller
 {
   path: [ '/test', '/test2' ],

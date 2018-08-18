@@ -1,0 +1,32 @@
+{
+  "name": "pure-koa-router",
+  "version": "1.0.0",
+  "description": "> 一个将koa的路由配置和控制器分离的中间件 ## 路由配置设计",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "standard",
+    "validate": "npm ls"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qianlongo/pure-koa-router.git"
+  },
+  "author": "qianlongo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/qianlongo/pure-koa-router/issues"
+  },
+  "homepage": "https://github.com/qianlongo/pure-koa-router#readme",
+  "devDependencies": {
+    "precommit-hook": "^3.0.0",
+    "standard": "^11.0.1"
+  },
+  "pre-commit": [
+    "validate"
+  ],
+  "dependencies": {
+    "koa-compose": "^4.1.0",
+    "koa-router": "^7.4.0"
+  }
+}

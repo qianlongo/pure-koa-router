@@ -2,6 +2,9 @@
 
 > 一个将路由配置和控制器分离的koa中间件
 
+[你可能会用到的一个路由适配器](https://github.com/qianlongo/blog/issues/27)
+
+
 ## 使用
 
 > npm i pure-koa-router -S

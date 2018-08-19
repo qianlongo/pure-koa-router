@@ -11,6 +11,8 @@ module.exports = ({ routes = [], controllerDir = '', routerOptions = {} }) => {
   assert(fs.existsSync(controllerDir), 'controllerDir must be a file directory')
 
   if (typeof routes === 'string') {
+    routes = routes.replace('.js', '')
+
     if (fs.existsSync(`${routes}.js`) || fs.existsSync(routes)) {
       if (fs.existsSync(`${routes}.js`)) {
         routes = require(routes)

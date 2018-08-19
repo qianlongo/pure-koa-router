@@ -31,7 +31,7 @@ app.use(pureKoaRouter({
 
 ```
 
-## routes配置
+## routes配置 ([也可以参考例子](https://github.com/qianlongo/pure-koa-router/tree/master/example/routes))
 
 ```
 // path 支持字符串  数据 正则

@@ -1,4 +1,5 @@
 const nodePath = require('path')
+const fs = require('fs')
 const KoaRouter = require('koa-router')
 const koaCompose = require('koa-compose')
 const assert = (condition, msg) => {
@@ -6,8 +7,22 @@ const assert = (condition, msg) => {
 }
 
 module.exports = ({ routes = [], controllerDir = '', routerOptions = {} }) => {
-  assert(Array.isArray(routes), 'routes must be an Array')
-  assert(controllerDir, 'controllerDir is required')
+  assert(Array.isArray(routes) || typeof routes === 'string', 'routes must be an Array or a String')
+  assert(fs.existsSync(controllerDir), 'controllerDir must be a file directory')
+
+  if (typeof routes === 'string') {
+    if (fs.existsSync(`${routes}.js`) || fs.existsSync(routes)) {
+      if (fs.existsSync(`${routes}.js`)) {
+        routes = require(routes)
+      } else if (fs.existsSync(routes)) {
+        routes = fs.readdirSync(routes).reduce((result, fileName) => {
+          return result.concat(require(nodePath.join(routes, fileName)))
+        }, [])
+      }
+    } else {
+      throw new Error('routes is not a file or a directory')
+    }
+  }
 
   let router = new KoaRouter(routerOptions)
   let middleware

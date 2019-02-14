@@ -2,6 +2,7 @@ module.exports = [
   // 渲染首页html
   {
     path: '/',
+    methods: 'all',
     controller: 'tasks.list'
   },
   // 添加任务

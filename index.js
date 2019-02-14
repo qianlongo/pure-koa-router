@@ -57,7 +57,7 @@ const registerRouter = (routes, controllerDir, routerOptions) => {
     })
 
     if (matchAllMethod) {
-      router.all(path, middleware)
+      router.all(path, ...middleware)
     } else {
       router.register(path, methods, middleware)
     }

@@ -6,32 +6,38 @@ const assert = (condition, msg) => {
   if (!condition) throw new Error(msg)
 }
 
-module.exports = ({ routes = [], controllerDir = '', routerOptions = {} }) => {
+const getRoutes = (routes = []) => {
   assert(Array.isArray(routes) || typeof routes === 'string', 'routes must be an Array or a String')
-  assert(fs.existsSync(controllerDir), 'controllerDir must be a file directory')
 
   if (typeof routes === 'string') {
     routes = routes.replace('.js', '')
-
-    if (fs.existsSync(`${routes}.js`) || fs.existsSync(routes)) {
-      if (fs.existsSync(`${routes}.js`)) {
-        routes = require(routes)
-      } else if (fs.existsSync(routes)) {
-        routes = fs.readdirSync(routes).reduce((result, fileName) => {
-          return result.concat(require(nodePath.join(routes, fileName)))
-        }, [])
-      }
+    if (fs.existsSync(`${routes}.js`)) {
+      routes = require(routes)
+    } else if (fs.existsSync(routes)) {
+      routes = fs.readdirSync(routes).reduce((result, fileName) => {
+        return result.concat(require(nodePath.join(routes, fileName)))
+      }, [])
     } else {
       throw new Error('routes is not a file or a directory')
     }
   }
 
+  return routes
+}
+
+const registerRouter = (routes, controllerDir, routerOptions) => {
+  assert(fs.existsSync(controllerDir), 'controllerDir must be a file directory')
+
   let router = new KoaRouter(routerOptions)
   let middleware
-
+  
   routes.forEach((routeConfig = {}) => {
-    let { path, methods = [ 'get' ], controller } = routeConfig
+    let { path, match, method, methods = 'get', controller } = routeConfig
+    let matchAllMethod = false
 
+    methods = methods || method
+    matchAllMethod = methods === 'all'
+    path = path || match
     methods = (Array.isArray(methods) && methods) || [ methods ]
     controller = (Array.isArray(controller) && controller) || [ controller ]
 
@@ -50,8 +56,16 @@ module.exports = ({ routes = [], controllerDir = '', routerOptions = {} }) => {
       return controllerMethod
     })
 
-    router.register(path, methods, middleware)
+    if (matchAllMethod) {
+      router.all(path, middleware)
+    } else {
+      router.register(path, methods, middleware)
+    }
   })
 
   return koaCompose([ router.routes(), router.allowedMethods() ])
+}
+
+module.exports = ({ routes = [], controllerDir = '', routerOptions = {} }) => {
+  return registerRouter(getRoutes(routes), controllerDir, routerOptions)
 }

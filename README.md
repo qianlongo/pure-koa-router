@@ -37,8 +37,8 @@ app.use(pureKoaRouter({
 ## routes配置 ([也可以参考例子](https://github.com/qianlongo/pure-koa-router/tree/master/example/routes))
 
 ```
-// path 支持字符串  数据 正则
-// methods 支持字符串  数据
+// path 支持字符串  数组 正则
+// methods 支持字符串  数组
 // middleware 支持字符串  数组
 
 // 1 最基础的配置
@@ -61,3 +61,11 @@ app.use(pureKoaRouter({
   controller: 'test.index'
 }
 ```
+
+## 更新记录
+
+1.0.0  第一个版本
+
+1.0.1 修改文档说明
+
+1.0.2 支持方法为all的情况支持

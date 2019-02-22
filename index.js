@@ -10,15 +10,22 @@ const getRoutes = (routes = []) => {
   assert(Array.isArray(routes) || typeof routes === 'string', 'routes must be an Array or a String')
 
   if (typeof routes === 'string') {
-    routes = routes.replace('.js', '')
-    if (fs.existsSync(`${routes}.js`)) {
-      routes = require(routes)
-    } else if (fs.existsSync(routes)) {
-      routes = fs.readdirSync(routes).reduce((result, fileName) => {
-        return result.concat(require(nodePath.join(routes, fileName)))
-      }, [])
-    } else {
-      throw new Error('routes is not a file or a directory')
+    assert(fs.existsSync(routes), 'path does not exist')
+
+    try {
+      const stat = fs.lstatSync(routes)
+
+      if (stat.isFile()) {
+        routes = require(routes)
+      } else if (stat.isDirectory()) {
+        routes = fs.readdirSync(routes).reduce((result, fileName) => {
+          return result.concat(require(nodePath.join(routes, fileName)))
+        }, [])
+      } else {
+        throw new Error('routes is not a file or a directory')
+      }
+    } catch (e) {
+      throw new Error(e)
     }
   }
 

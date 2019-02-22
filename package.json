@@ -1,6 +1,6 @@
 {
   "name": "pure-koa-router",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "> 一个将koa的路由配置和控制器分离的中间件 ## 路由配置设计",
   "main": "index.js",
   "scripts": {

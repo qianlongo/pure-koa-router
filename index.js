@@ -39,10 +39,11 @@ const registerRouter = (routes, controllerDir, routerOptions) => {
   let middleware
   
   routes.forEach((routeConfig = {}) => {
-    let { path, match, method, methods = 'get', controller } = routeConfig
+    let { path, match, method, methods, controller } = routeConfig
     let matchAllMethod = false
 
     methods = methods || method
+    methods = methods || 'get'
     matchAllMethod = methods === 'all'
     path = path || match
     methods = (Array.isArray(methods) && methods) || [ methods ]

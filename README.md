@@ -71,3 +71,6 @@ app.use(pureKoaRouter({
 1.0.2 支持方法为all的情况支持
 
 1.0.3 添加获取文件异常处理
+
+1.0.4 修复method为all时路由匹配有问题的bug
+
